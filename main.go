@@ -14,6 +14,7 @@ import (
 	"github.com/go-gl/gl/v3.3-core/gl"
 	"github.com/go-gl/glfw/v3.2/glfw"
 	"github.com/go-gl/mathgl/mgl32"
+	"github.com/kaneta1992/gl/renderer/gl33"
 )
 
 const windowWidth = 800
@@ -25,28 +26,7 @@ func init() {
 }
 
 func main() {
-	if err := glfw.Init(); err != nil {
-		log.Fatalln("failed to initialize glfw:", err)
-	}
-	defer glfw.Terminate()
-
-	glfw.WindowHint(glfw.Resizable, glfw.False)
-	glfw.WindowHint(glfw.ContextVersionMajor, 3)
-	glfw.WindowHint(glfw.ContextVersionMinor, 3)
-	glfw.WindowHint(glfw.OpenGLForwardCompatible, glfw.True)
-	window, err := glfw.CreateWindow(windowWidth, windowHeight, "Cube", nil, nil)
-	if err != nil {
-		log.Println(err)
-	}
-	window.MakeContextCurrent()
-
-	// Initialize Glow
-	if err := gl.Init(); err != nil {
-		panic(err)
-	}
-
-	version := gl.GoStr(gl.GetString(gl.VERSION))
-	fmt.Println("OpenGL version", version)
+	win, err := window.New(800, 600, "ora")
 
 	// Configure the vertex and fragment shaders
 	program, err := newProgram(vertexShader, fragmentShader)
@@ -105,7 +85,7 @@ func main() {
 	angle := 0.0
 	previousTime := glfw.GetTime()
 
-	for !window.ShouldClose() {
+	win.GameLoop(func() {
 		gl.Clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
 
 		// Update
@@ -126,11 +106,8 @@ func main() {
 		gl.BindTexture(gl.TEXTURE_2D, texture)
 
 		gl.DrawArrays(gl.TRIANGLES, 0, 6*2*3)
-
-		// Maintenance
-		window.SwapBuffers()
-		glfw.PollEvents()
-	}
+	})
+	win.Destory()
 }
 
 func newProgram(vertexShaderSource, fragmentShaderSource string) (uint32, error) {
