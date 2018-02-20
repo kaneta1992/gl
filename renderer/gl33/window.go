@@ -43,15 +43,19 @@ func NewWindow(w, h int, title string) (*Window, error) {
 	return win, nil
 }
 
-func (w *Window) GameLoop(proc func()) {
+func (w *Window) GameLoop(proc func(float64)) {
+	previousTime := glfw.GetTime()
 	for !w.window.ShouldClose() {
-		proc()
+		time := glfw.GetTime()
+		elapsed := time - previousTime
+		previousTime = time
+		proc(elapsed)
 		// Maintenance
 		w.window.SwapBuffers()
 		glfw.PollEvents()
 	}
 }
 
-func (w *Window) Destory() {
+func (w *Window) Delete() {
 	glfw.Terminate()
 }
