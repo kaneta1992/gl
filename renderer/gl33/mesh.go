@@ -24,10 +24,16 @@ func NewMesh(vertices []float32, material *Material) (*Mesh, error) {
 	texCoordAttrib := uint32(gl.GetAttribLocation(material.id, gl.Str("vertTexCoord\x00")))
 	gl.EnableVertexAttribArray(texCoordAttrib)
 	gl.VertexAttribPointer(texCoordAttrib, 2, gl.FLOAT, false, 5*4, gl.PtrOffset(3*4))
+
 	return mesh, nil
 }
 
 func (m *Mesh) Draw() {
 	gl.BindVertexArray(m.vaoId)
 	gl.DrawArrays(gl.TRIANGLES, 0, 6*2*3)
+}
+
+func (m *Mesh) Delete() {
+	gl.DeleteBuffers(1, &m.vboId)
+	gl.DeleteVertexArrays(1, &m.vaoId)
 }
