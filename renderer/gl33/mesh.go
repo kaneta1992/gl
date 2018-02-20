@@ -25,6 +25,8 @@ func NewMesh(vertices []float32, material *Material) (*Mesh, error) {
 	gl.EnableVertexAttribArray(texCoordAttrib)
 	gl.VertexAttribPointer(texCoordAttrib, 2, gl.FLOAT, false, 5*4, gl.PtrOffset(3*4))
 
+	gl.BindVertexArray(0)
+
 	return mesh, nil
 }
 

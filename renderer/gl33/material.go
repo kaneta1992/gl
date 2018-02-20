@@ -40,6 +40,10 @@ func (m *Material) SetInt1ByName(name string, integer int32) {
 	gl.Uniform1i(location, integer)
 }
 
+func (m *Material) Delete() {
+	gl.DeleteProgram(m.id)
+}
+
 func newProgram(vertex, fragment *Shader) (uint32, error) {
 	program := gl.CreateProgram()
 
