@@ -1,4 +1,4 @@
-package window
+package gl33
 
 import (
 	"fmt"
@@ -23,7 +23,7 @@ func initGraphics() {
 	fmt.Println("OpenGL version", version)
 }
 
-func New(w, h int, title string) (*Window, error) {
+func NewWindow(w, h int, title string) (*Window, error) {
 	win := &Window{}
 	if err := glfw.Init(); err != nil {
 		log.Fatalln("failed to initialize glfw:", err)
