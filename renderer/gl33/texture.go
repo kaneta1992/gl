@@ -19,7 +19,7 @@ func NewTexture(path string) (*Texture, error) {
 	if err != nil {
 		panic(err)
 	}
-	return &Texture{id: texture}, nil
+	return &Texture{id: texture, unit: 99999}, nil
 }
 
 var glTextureUnits = []uint32{
@@ -34,11 +34,14 @@ var glTextureUnits = []uint32{
 	gl.TEXTURE8,
 }
 
+var activeTextureTable = map[uint32]*Texture{}
+
 func (t *Texture) Set(unit uint32) {
-	if t.unit == unit {
+	if activeTextureTable[unit] == t {
 		return
 	}
-	t.unit = unit
+	// t.unit = unit
+	activeTextureTable[unit] = t
 	gl.ActiveTexture(glTextureUnits[unit])
 	gl.BindTexture(gl.TEXTURE_2D, t.id)
 }
@@ -68,8 +71,8 @@ func newTexture(file string) (uint32, error) {
 	gl.BindTexture(gl.TEXTURE_2D, texture)
 	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR)
 	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
-	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE)
-	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE)
+	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT)
+	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT)
 	gl.TexImage2D(
 		gl.TEXTURE_2D,
 		0,

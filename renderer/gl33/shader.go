@@ -2,6 +2,7 @@ package gl33
 
 import (
 	"fmt"
+	"io/ioutil"
 	"strings"
 
 	"github.com/go-gl/gl/v3.3-core/gl"
@@ -9,6 +10,30 @@ import (
 
 type Shader struct {
 	id uint32
+}
+
+func convNewline(str, nlcode string) string {
+	return strings.NewReplacer(
+		"\r\n", nlcode,
+		"\r", nlcode,
+		"\n", nlcode,
+	).Replace(str)
+}
+
+func NewVertexShaderFromFile(path string) (*Shader, error) {
+	source, err := ioutil.ReadFile(path)
+	if err != nil {
+		return nil, err
+	}
+	return NewVertexShader(convNewline(string(source), "\n") + "\x00")
+}
+
+func NewFragmentShaderFromFile(path string) (*Shader, error) {
+	source, err := ioutil.ReadFile(path)
+	if err != nil {
+		return nil, err
+	}
+	return NewFragmentShader(convNewline(string(source), "\n") + "\x00")
 }
 
 func NewVertexShader(source string) (*Shader, error) {

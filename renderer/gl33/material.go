@@ -40,6 +40,24 @@ func (m *Material) SetInt1ByName(name string, integer int32) {
 	gl.Uniform1i(location, integer)
 }
 
+func (m *Material) SetFloatByName(name string, value float32) {
+	m.ShouldUseMaterial()
+	location := gl.GetUniformLocation(m.id, gl.Str(name+"\x00"))
+	gl.Uniform1f(location, value)
+}
+
+func (m *Material) SetVec2ByName(name string, vec mgl32.Vec2) {
+	m.ShouldUseMaterial()
+	location := gl.GetUniformLocation(m.id, gl.Str(name+"\x00"))
+	gl.Uniform2fv(location, 1, &vec[0])
+}
+
+func (m *Material) SetVec3ByName(name string, vec mgl32.Vec3) {
+	m.ShouldUseMaterial()
+	location := gl.GetUniformLocation(m.id, gl.Str(name+"\x00"))
+	gl.Uniform3fv(location, 1, &vec[0])
+}
+
 func (m *Material) Delete() {
 	gl.DeleteProgram(m.id)
 }
