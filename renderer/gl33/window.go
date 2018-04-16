@@ -4,6 +4,7 @@ import (
 	"fmt"
 	_ "image/png"
 	"log"
+	"runtime"
 
 	"github.com/go-gl/gl/v3.3-core/gl"
 	"github.com/go-gl/glfw/v3.2/glfw"
@@ -33,6 +34,10 @@ func NewWindow(w, h int, title string) (*Window, error) {
 	glfw.WindowHint(glfw.ContextVersionMajor, 3)
 	glfw.WindowHint(glfw.ContextVersionMinor, 3)
 	glfw.WindowHint(glfw.OpenGLForwardCompatible, glfw.True)
+	glfw.WindowHint(glfw.OpenGLProfile, glfw.OpenGLCoreProfile)
+	if runtime.GOOS == "darwin" {
+		glfw.WindowHint(glfw.OpenGLForwardCompatible, glfw.True)
+	}
 	var err error
 	win.window, err = glfw.CreateWindow(w, h, title, nil, nil)
 	if err != nil {

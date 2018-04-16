@@ -21,7 +21,7 @@ vec2 rotate(vec2 pos, float angle) {
 void main() {
     vec2 uv = fragTexCoord * 1;
     float mask3 = texture(mask3, uv).r;
-    vec4 cardCol = texture(tex, uv + vec2(sin(time * 2.0 + uv.x * 5.0 + uv.y * 20.0), cos(time * 2.0 + uv.x * 20.0 + uv.y * 5.0)) * 0.005 * (1.0 - mask3));
+    vec4 cardCol = texture(tex, uv + vec2(sin(time * 4.0 + uv.x * 5.0 + uv.y * 20.0), cos(time * 4.0 + uv.x * 20.0 + uv.y * 5.0)) * 0.005 * (1.0 - mask3));
 
     vec4 cherryCol = texture(cherryTex, uv * 1.0 + normalize(vec2(-0.5, -0.5)) * time * 0.25);
     vec4 cherryCol2 = texture(cherryTex, uv * 2.0 + normalize(vec2(-0.5, -0.5)) * time * 0.35);

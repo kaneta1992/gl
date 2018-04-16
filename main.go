@@ -9,8 +9,8 @@ import (
 	"github.com/kaneta1992/gl/renderer/gl33"
 )
 
-const windowWidth = 1200
-const windowHeight = 900
+const windowWidth = 1000
+const windowHeight = 700
 
 func init() {
 	// GLFW event handling must run on the main OS thread
