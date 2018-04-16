@@ -48,34 +48,41 @@ func main() {
 	material.SetInt1ByName("lensTex", 6)
 
 	// Load the texture
-	card, err := gl33.NewTexture("card.png")
+	card, err := gl33.NewTexture("resource/card.png")
 	if err != nil {
 		log.Fatalln(err)
 	}
-	cherry, err := gl33.NewTexture("cherry2.png")
+	cherry, err := gl33.NewTexture("resource/cherry2.png")
 	if err != nil {
 		log.Fatalln(err)
 	}
-	kira, err := gl33.NewTexture("kira.png")
+	kira, err := gl33.NewTexture("resource/kira.png")
 	if err != nil {
 		log.Fatalln(err)
 	}
-	mask1, err := gl33.NewTexture("mask2.png")
+	mask1, err := gl33.NewTexture("resource/mask2.png")
 	if err != nil {
 		log.Fatalln(err)
 	}
-	mask3, err := gl33.NewTexture("mask4.png")
+	mask3, err := gl33.NewTexture("resource/mask4.png")
 	if err != nil {
 		log.Fatalln(err)
 	}
-	sun, err := gl33.NewTexture("sun.png")
+	sun, err := gl33.NewTexture("resource/sun.png")
 	if err != nil {
 		log.Fatalln(err)
 	}
-	lens, err := gl33.NewTexture("lens.png")
+	lens, err := gl33.NewTexture("resource/lens.png")
 	if err != nil {
 		log.Fatalln(err)
 	}
+	card.Set(0)
+	cherry.Set(1)
+	kira.Set(2)
+	mask1.Set(3)
+	mask3.Set(4)
+	sun.Set(5)
+	lens.Set(6)
 
 	mesh, err := gl33.NewMesh(cubeVertices, material)
 
@@ -96,13 +103,6 @@ func main() {
 		scale := mgl32.Scale3D(0.75, 0.75, 1.0)
 		model := mgl32.Translate3D(0, 0, 0).Mul4(scale)
 		material.SetMatrix4ByName("model", model)
-		card.Set(0)
-		cherry.Set(1)
-		kira.Set(2)
-		mask1.Set(3)
-		mask3.Set(4)
-		sun.Set(5)
-		lens.Set(6)
 
 		mesh.Draw()
 	})
