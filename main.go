@@ -9,8 +9,8 @@ import (
 	"github.com/kaneta1992/gl/renderer/gl33"
 )
 
-const windowWidth = 1000
-const windowHeight = 700
+const windowWidth = 1200
+const windowHeight = 900
 
 func init() {
 	// GLFW event handling must run on the main OS thread
@@ -24,7 +24,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	fs, err := gl33.NewFragmentShaderFromFile("shader/fragment.glsl")
+	fs, err := gl33.NewFragmentShaderFromFile("shader/kanan.glsl")
 	if err != nil {
 		panic(err)
 	}
@@ -52,11 +52,11 @@ func main() {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	cherry, err := gl33.NewTexture("resource/cherry2.png")
+	cherry, err := gl33.NewTexture("resource/hotal.png")
 	if err != nil {
 		log.Fatalln(err)
 	}
-	kira, err := gl33.NewTexture("resource/kira.png")
+	kira, err := gl33.NewTexture("resource/star.png")
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -68,7 +68,7 @@ func main() {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	sun, err := gl33.NewTexture("resource/sun.png")
+	sun, err := gl33.NewTexture("resource/light.png")
 	if err != nil {
 		log.Fatalln(err)
 	}
